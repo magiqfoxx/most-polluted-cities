@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Skygate</title>
+  </head>
+  <body>
+    <form onsubmit="getResults(country.value)" id="countryForm">
+      <select name="country" id="country">
+        <option value="PL">Poland</option>
+        <option value="DE">Germany</option>
+        <option value="ES">Spain</option>
+        <option value="FR">France</option>
+      </select>
+      <input type="submit" value="submit" />
+    </form>
+    <div id="results"></div>
+    <script src="./index.js"></script>
+  </body>
+</html>
