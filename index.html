@@ -30,12 +30,21 @@
 
       <form onsubmit="getResults(country.value)" id="countryForm" class="form">
         <label class="form__label" for="country">Choose a country</label>
+        <input
+          type="text"
+          name="country"
+          id="country"
+          autocomplete="on"
+          placeholder="country..."
+          class="form-control"
+        />
+        <!--
         <select class="custom-select" name="country" id="country">
           <option value="PL">Poland</option>
           <option value="DE">Germany</option>
           <option value="ES">Spain</option>
           <option value="FR">France</option>
-        </select>
+        </select>-->
         <input type="submit" value="submit" class="btn btn-danger button" />
       </form>
       <div id="results" class="accordion-container"></div>

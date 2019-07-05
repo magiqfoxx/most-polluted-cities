@@ -2,31 +2,55 @@
 document.getElementById("country").value = sessionStorage.country;
 const loader =
   '<div class="lds-facebook"><div></div><div></div><div></div></div>';
-async function getResults(country) {
+
+async function getResults(countryFullName) {
   event.preventDefault();
   //getting the value of country from storage
-  sessionStorage.setItem("country", country);
-
+  sessionStorage.setItem("country", countryFullName);
+  let country;
+  switch (countryFullName) {
+    case "Poland":
+      country = "PL";
+      break;
+    case "Germany":
+      country = "DE";
+      break;
+    case "Spain":
+      country = "ES";
+      break;
+    case "France":
+      country = "FR";
+      break;
+    default:
+      document.getElementById("results").innerHTML =
+        "<h3>Please choose one of these four cities:</h3><ul><li>Poland</li><li>Germany</li><li>Spain</li><li>France</li></ul>";
+  }
+  if (!["Poland", "Germany", "Spain", "France"].includes(countryFullName)) {
+    return;
+  }
   //show Loader
   document.getElementById("results").innerHTML = loader;
 
   let limit = 10;
-  let cities = await getPolutionData(country).catch(error => showError(error));
+  let cities = await getPollutionData(country).catch(error => showError(error));
   while (!checkIf10Cities(cities)) {
-    if (limit > 30) {
+    if (limit >= 100) {
+      //considering the unpredictable nature of the data i'm choosing to request only a 100 results
+      //limit could be changed to a bigger number but there is no guarantee that it would mean more variability in cities
       console.log(
-        "Too many requests. Returning locations instead. Might end up being less than 10."
+        "Too many requests, not enough cities. Couldn't find at least 10 cities."
       );
       break;
     }
-    cities = await getPolutionData(country, (limit += 10)).catch(error =>
+    cities = await getPollutionData(country, (limit = 100)).catch(error =>
       showError(error)
     );
   }
   noRepeatCities = removeRepeats(cities);
   let pollutedCities = [];
+
   const getExtracts = async () => {
-    //running consecutively to avoid sorting by value again
+    //running consecutively to avoid sorting by value again later
     for (const city of noRepeatCities) {
       const name = city.city;
       const value = city.value;
@@ -52,12 +76,15 @@ async function getResults(country) {
   };
   getExtracts();
 }
+
 function showError(error) {
   console.log(error);
   document.getElementById(results).innerHTML =
     "Sorry. There was an error while fetching the data";
 }
-async function getPolutionData(country, limit = 10) {
+
+async function getPollutionData(country, limit = 10) {
+  //I'm choosing to rank cities by the amount of pm25 as it's the most popular parameter when talking about pollution
   const response = await fetch(
     `https://api.openaq.org/v1/measurements?country=${country}&parameter=pm25&order_by=value&sort=desc&limit=${limit}`
   );
