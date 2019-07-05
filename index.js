@@ -1,5 +1,8 @@
 //Setting the value of the field based on storage
-document.getElementById("country").value = sessionStorage.country;
+if (sessionStorage.country) {
+  document.getElementById("country").value = sessionStorage.country;
+}
+
 const loader =
   '<div class="lds-facebook"><div></div><div></div><div></div></div>';
 
