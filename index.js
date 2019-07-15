@@ -8,27 +8,28 @@ const loader =
 
 async function getResults(countryFullName) {
   event.preventDefault();
-  //getting the value of country from storage
-  sessionStorage.setItem("country", countryFullName);
+  let countryLower = countryFullName.toLowerCase();
+  //setting the value of country in storage
+  sessionStorage.setItem("country", countryLower);
   let country;
-  switch (countryFullName) {
-    case "Poland":
+  switch (countryLower) {
+    case "poland":
       country = "PL";
       break;
-    case "Germany":
+    case "germany":
       country = "DE";
       break;
-    case "Spain":
+    case "spain":
       country = "ES";
       break;
-    case "France":
+    case "france":
       country = "FR";
       break;
     default:
       document.getElementById("results").innerHTML =
         "<h3>Please choose one of these four cities:</h3><ul><li>Poland</li><li>Germany</li><li>Spain</li><li>France</li></ul>";
   }
-  if (!["Poland", "Germany", "Spain", "France"].includes(countryFullName)) {
+  if (!["poland", "germany", "spain", "france"].includes(countryLower)) {
     return;
   }
   //show Loader
