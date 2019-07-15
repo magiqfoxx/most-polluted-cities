@@ -10,7 +10,10 @@ Last chosen country is stored and persists between page reloads.
 [Accordion](https://github.com/michu2k/Accordion) is used to create the accordion and [Bootstrap](https://getbootstrap.com) facilitates stying.
 
 ## Installation
-To use, simply clone or download the repository and open index.html.   
+To use, simply clone or download the repository and open index.html.  
+```javascript
+git clone https://github.com/magiqfoxx/most-polluted-cities.git
+```  
 You can also see a live version at [https://magiqfoxx.github.io/most-polluted-cities](https://magiqfoxx.github.io/most-polluted-cities/)
 
 ## License
